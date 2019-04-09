@@ -42,8 +42,8 @@ perplexity = 35.0
 learning_rate = 200.0
 t0 = time()
 tsne = manifold.TSNE(n_components=2, init='pca', random_state=0, perplexity=perplexity,
-                     learning_rate=learning_rate, metric=distance, verbose=2)
-num = 9000
+                     learning_rate=learning_rate, verbose=2)
+num = len(data)
 trans_data = tsne.fit_transform(data[:num]).T
 t1 = time()
 fig = plt.figure(figsize=(15, 8))
