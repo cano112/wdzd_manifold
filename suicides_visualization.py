@@ -38,26 +38,28 @@ def distance(first_piece, second_piece):
 
 
 print("T-SNE started")
-perplexity = 35.0
-learning_rate = 200.0
-t0 = time()
-tsne = manifold.TSNE(n_components=2, init='pca', random_state=0, perplexity=perplexity,
-                     learning_rate=learning_rate, verbose=2)
-num = len(data)
-trans_data = tsne.fit_transform(data[:num]).T
-t1 = time()
-fig = plt.figure(figsize=(15, 8))
-ax = fig.add_subplot(111)
-plt.scatter(trans_data[0], trans_data[1], c=np.random.rand(num))
-plt.title("t-SNE ({:2.3g} sec) perplexity {:2.3g} learning rate {:2.3g}".format(t1 - t0, perplexity,
-                                                                                learning_rate))
-ax.xaxis.set_major_formatter(NullFormatter())
-ax.yaxis.set_major_formatter(NullFormatter())
-plt.axis('tight')
-plt.savefig('tsne_rogal_perp={}_learnrate={}.png'.format(perplexity, learning_rate))
-print("Saved figure for perplexity {} and learning rate {}.".format(perplexity, learning_rate))
-plt.show()
-plt.clf()
+perplexities = [1.0,8.0,21.0,34.0,55.0,89.0,144.0]
+learning_rates = [200.0, 170.0, 100.0, 50.0]
+for learning_rate in learning_rates:
+    for perplexity in perplexities:
+        t0 = time()
+        tsne = manifold.TSNE(n_components=2, init='pca', random_state=0, perplexity=perplexity,
+                             learning_rate=learning_rate, verbose=3)
+        num = len(data)
+        trans_data = tsne.fit_transform(data[:num]).T
+        t1 = time()
+        fig = plt.figure(figsize=(15, 8))
+        ax = fig.add_subplot(111)
+        plt.scatter(trans_data[0], trans_data[1], c=np.random.rand(num))
+        plt.title("t-SNE ({:2.3g} sec) perplexity {:2.3g} learning rate {:2.3g}".format(t1 - t0, perplexity,
+                                                                                        learning_rate))
+        ax.xaxis.set_major_formatter(NullFormatter())
+        ax.yaxis.set_major_formatter(NullFormatter())
+        plt.axis('tight')
+        plt.savefig('tsne_default_metric_perp={}_learnrate={}.png'.format(perplexity, learning_rate))
+        print("Saved figure for perplexity {} and learning rate {} in time {:2.3g}.".format(perplexity, learning_rate, t1-t0))
+        # plt.show()
+        plt.clf()
 
 # codes = pd.read_csv('isocountrycodes.csv')[['name', 'alpha-3']].values
 # map_codes = dict(codes)

@@ -79,8 +79,8 @@ for i in range(layers_no):
 #
 # Perform t-distributed stochastic neighbor embedding.
 sphere_data = np.array([x, y, z]).T
-perplexities = [1.0,2.0,3.0,5.0,8.0,13.0,21.0,34.0,55.0,89.0,144.0,233.0]
-learning_rates = [1000.0, 400.0, 280.0, 230.0, 200.0, 170.0, 100.0, 50.0, 10.0]
+perplexities = [1.0,8.0,21.0,34.0,55.0,89.0,144.0]
+learning_rates = [280.0, 230.0, 200.0, 170.0, 100.0, 50.0, 10.0]
 
 print("started drawing")
 for learning_rate in learning_rates:
